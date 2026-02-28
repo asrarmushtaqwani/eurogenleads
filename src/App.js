@@ -493,7 +493,6 @@ export default function EuroGenLeads() {
           <h2 className="text-4xl font-bold text-white mb-16 text-center">Why Choose EuroGenLeads</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {benefits.map((benefit, idx) => {
-              const Icon = benefit.icon;
               return (
                 <div key={idx} className="flex items-center gap-6 p-6 rounded-xl hover:bg-slate-800/30 transition-colors">
                   <div className="w-1 h-16 bg-teal-500/30 rounded-full"></div>
