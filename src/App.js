@@ -789,8 +789,8 @@ export default function EuroGenLeads() {
                 <p className="text-sm text-slate-300">🎉 <span className="text-teal-400 font-bold">Founder's Deal:</span> First 5 clients lock in launch pricing forever — <span className="text-teal-400 font-bold">3 spots remaining</span> 🎉</p>
               </div>
 
-              {/* Pricing Cards — force 3 columns always */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '1.5rem' }}>
+              {/* Pricing Cards — 3 columns on desktop, stack on mobile */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
 
                 {/* Starter */}
                 <div className="bg-slate-800/40 border border-slate-700 rounded-2xl p-6 flex flex-col">
@@ -918,7 +918,7 @@ export default function EuroGenLeads() {
                 <h3 className="text-2xl font-bold text-white text-center mb-2">Full Feature Comparison</h3>
                 <p className="text-slate-400 text-center text-sm mb-8">Everything side-by-side so you can choose with confidence</p>
                 <div className="overflow-x-auto rounded-xl border border-slate-700">
-                  <table className="w-full text-sm">
+                  <table className="w-full text-sm" style={{ minWidth: '600px' }}>
                     <thead>
                       <tr className="border-b border-slate-700 bg-slate-800/60">
                         <th className="text-left px-5 py-4 text-slate-400 font-semibold tracking-wider text-xs uppercase w-2/5">Feature</th>
