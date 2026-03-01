@@ -1,23 +1,30 @@
 // Save this file as: api/chat.js in your Vercel project
-// Fixed version with correct safetySettings
+// Using gemini-pro-vision which is more widely available
 
 export default async function handler(req, res) {
+  console.log('API called with method:', req.method);
+  
   // Only allow POST requests
   if (req.method !== 'POST') {
+    console.log('Method not allowed:', req.method);
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   // Get the message from the request
   const { message, conversationHistory } = req.body;
+  console.log('Received message:', message);
 
   // Validate input
   if (!message || typeof message !== 'string') {
+    console.log('Invalid message');
     return res.status(400).json({ error: 'Message is required' });
   }
 
   try {
     // Get API key from environment variable
     const apiKey = process.env.GEMINI_API_KEY;
+    console.log('API Key exists:', !!apiKey);
+    
     if (!apiKey) {
       return res.status(500).json({ error: 'API key not configured' });
     }
@@ -34,53 +41,32 @@ export default async function handler(req, res) {
       }
     ];
 
-    // Call Gemini API with CORRECT safety settings
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          contents: contents,
-          generationConfig: {
-            temperature: 0.9,
-            topK: 1,
-            topP: 1,
-            maxOutputTokens: 2048
-          },
-          safetySettings: [
-            {
-              category: 'HARM_CATEGORY_HATE_SPEECH',
-              threshold: 'BLOCK_NONE'
-            },
-            {
-              category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
-              threshold: 'BLOCK_NONE'
-            },
-            {
-              category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
-              threshold: 'BLOCK_NONE'
-            },
-            {
-              category: 'HARM_CATEGORY_HARASSMENT',
-              threshold: 'BLOCK_NONE'
-            },
-            {
-              category: 'HARM_CATEGORY_CIVIC_INTEGRITY',
-              threshold: 'BLOCK_NONE'
-            }
-          ]
-        })
-      }
-    );
+    console.log('Calling Gemini API...');
+
+    // Call Gemini API - trying with gemini-pro which is more stable
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+    console.log('URL:', url.replace(apiKey, 'KEY_HIDDEN'));
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        contents: contents,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 1024
+        }
+      })
+    });
+
+    console.log('Response status:', response.status);
 
     if (!response.ok) {
       const error = await response.json();
       console.error('Gemini API error:', error);
       
-      // Better error messages
       let errorMessage = 'Failed to get response from Gemini';
       if (error.error && error.error.message) {
         errorMessage = error.error.message;
@@ -92,25 +78,19 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
+    console.log('Got response from Gemini');
 
     // Extract the response text
     if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
-      // Sometimes the API returns empty candidates if content is blocked
-      if (data.candidates && data.candidates[0] && data.candidates[0].finishReason === 'SAFETY') {
-        return res.status(200).json({
-          success: true,
-          message: "I can't respond to that. Please try a different question.",
-          usage: data.usageMetadata || {}
-        });
-      }
-      
+      console.log('No content in response');
       return res.status(500).json({ 
-        error: 'Unexpected response format from Gemini API',
-        details: 'No content in response'
+        error: 'No response from Gemini',
+        details: 'Empty candidates'
       });
     }
 
     const assistantMessage = data.candidates[0].content.parts[0].text;
+    console.log('Sending response back to client');
 
     // Return the response
     res.status(200).json({
@@ -120,7 +100,7 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Catch error:', error);
     res.status(500).json({ 
       error: 'An error occurred while processing your request',
       details: error.message 
