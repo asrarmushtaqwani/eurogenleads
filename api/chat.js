@@ -24,9 +24,9 @@ export default async function handler(req, res) {
       ? `${formattedHistory}\nUser: ${message}\nAssistant:`
       : `User: ${message}\nAssistant:`;
 
-    // Using distilgpt2 - simpler and more reliable
+    // Using NEW endpoint: router.huggingface.co with distilgpt2
     const response = await fetch(
-      'https://api-inference.huggingface.co/models/distilgpt2',
+      'https://router.huggingface.co/models/distilgpt2',
       {
         method: 'POST',
         headers: {
