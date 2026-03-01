@@ -1,37 +1,64 @@
 export default async function handler(req, res) {
-  // Allow CORS (important for static sites)
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
+  const { message, conversationHistory } = req.body;
+
+  if (!message) {
+    return res.status(400).json({ error: 'No message' });
   }
 
   try {
-    const { message } = req.body;
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY not set' });
+    }
 
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
+    const contents = (conversationHistory || [])
+      .map(msg => ({
+        role: msg.role === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.content }]
+      }))
+      .concat([{
+        role: 'user',
+        parts: [{ text: message }]
+      }]);
+
+    // Using gemini-2.0-flash which is the latest available model
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+    const response = await fetch(url, {
+      method: 'POST',
       headers: {
-        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: "mistralai/mistral-7b-instruct",
-        messages: [
-          { role: "system", content: "You are a helpful chatbot." },
-          { role: "user", content: message }
-        ]
+        contents: contents,
+        generationConfig: {
+          temperature: 1,
+          maxOutputTokens: 2048,
+        }
       })
     });
 
     const data = await response.json();
 
-    res.status(200).json({
-      reply: data.choices[0].message.content
+    if (!response.ok) {
+      const errorMsg = data.error?.message || 'Unknown error';
+      return res.status(response.status).json({ error: errorMsg });
+    }
+
+    if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
+      return res.status(500).json({ error: 'No response from Gemini' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: data.candidates[0].content.parts[0].text
     });
 
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: error.message });
   }
 }
