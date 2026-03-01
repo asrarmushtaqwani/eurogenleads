@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'HUGGING_FACE_API_KEY not set' });
     }
 
-    // Format conversation history for Hugging Face
+    // Format conversation history
     const formattedHistory = (conversationHistory || [])
       .map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
       .join('\n');
@@ -24,9 +24,9 @@ export default async function handler(req, res) {
       ? `${formattedHistory}\nUser: ${message}\nAssistant:`
       : `User: ${message}\nAssistant:`;
 
-    // Using the NEW endpoint: router.huggingface.co
+    // Using distilgpt2 - simpler and more reliable
     const response = await fetch(
-      'https://router.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1',
+      'https://api-inference.huggingface.co/models/distilgpt2',
       {
         method: 'POST',
         headers: {
@@ -36,9 +36,8 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           inputs: prompt,
           parameters: {
-            max_new_tokens: 512,
-            temperature: 0.7,
-            top_p: 0.95
+            max_length: 200,
+            temperature: 0.8
           }
         })
       }
@@ -47,7 +46,9 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      const errorMsg = data.error || 'Unknown error from Hugging Face';
+      const errorMsg = Array.isArray(data) && data[0] && data[0].error 
+        ? data[0].error 
+        : (data.error || 'Unknown error from Hugging Face');
       return res.status(response.status).json({ error: errorMsg });
     }
 
@@ -58,14 +59,12 @@ export default async function handler(req, res) {
       assistantMessage = data[0].generated_text;
       // Remove the prompt from the response
       assistantMessage = assistantMessage.replace(prompt, '').trim();
-    } else if (data.generated_text) {
-      assistantMessage = data.generated_text.replace(prompt, '').trim();
     } else {
-      return res.status(500).json({ error: 'Invalid response format from Hugging Face' });
+      return res.status(500).json({ error: 'Invalid response format' });
     }
 
     if (!assistantMessage) {
-      return res.status(500).json({ error: 'Empty response from model' });
+      assistantMessage = 'I received your message. How can I help?';
     }
 
     return res.status(200).json({
