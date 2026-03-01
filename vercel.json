@@ -1,11 +1,7 @@
 {
   "functions": {
     "api/chat.js": {
-      "runtime": "nodejs18.x",
-      "memory": 1024,
-      "maxDuration": 30
+      "runtime": "nodejs20.x"
     }
-  },
-  "buildCommand": "npm install",
-  "outputDirectory": ".next"
+  }
 }
