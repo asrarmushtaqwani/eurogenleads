@@ -1,5 +1,5 @@
 // Save this file as: api/chat.js in your Vercel project
-// Updated version with correct Gemini model
+// Fixed version with correct safetySettings
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -34,8 +34,7 @@ export default async function handler(req, res) {
       }
     ];
 
-    // Call Gemini API with CORRECT model name
-    // Using gemini-1.5-flash (latest available model)
+    // Call Gemini API with CORRECT safety settings
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
@@ -53,7 +52,23 @@ export default async function handler(req, res) {
           },
           safetySettings: [
             {
-              category: 'HARM_CATEGORY_UNSPECIFIED',
+              category: 'HARM_CATEGORY_HATE_SPEECH',
+              threshold: 'BLOCK_NONE'
+            },
+            {
+              category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+              threshold: 'BLOCK_NONE'
+            },
+            {
+              category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+              threshold: 'BLOCK_NONE'
+            },
+            {
+              category: 'HARM_CATEGORY_HARASSMENT',
+              threshold: 'BLOCK_NONE'
+            },
+            {
+              category: 'HARM_CATEGORY_CIVIC_INTEGRITY',
               threshold: 'BLOCK_NONE'
             }
           ]
