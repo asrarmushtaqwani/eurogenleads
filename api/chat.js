@@ -25,7 +25,8 @@ export default async function handler(req, res) {
         parts: [{ text: message }]
       }]);
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+    // Using gemini-2.0-flash which is the latest available model
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
       method: 'POST',
