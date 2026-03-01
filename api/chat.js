@@ -1,5 +1,5 @@
 // Save this file as: api/chat.js in your Vercel project
-// This version uses Google Gemini Pro instead of Claude
+// Updated version with correct Gemini model
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -34,9 +34,10 @@ export default async function handler(req, res) {
       }
     ];
 
-    // Call Gemini API
+    // Call Gemini API with CORRECT model name
+    // Using gemini-1.5-flash (latest available model)
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: {
@@ -49,7 +50,13 @@ export default async function handler(req, res) {
             topK: 1,
             topP: 1,
             maxOutputTokens: 2048
-          }
+          },
+          safetySettings: [
+            {
+              category: 'HARM_CATEGORY_UNSPECIFIED',
+              threshold: 'BLOCK_NONE'
+            }
+          ]
         })
       }
     );
@@ -57,8 +64,15 @@ export default async function handler(req, res) {
     if (!response.ok) {
       const error = await response.json();
       console.error('Gemini API error:', error);
+      
+      // Better error messages
+      let errorMessage = 'Failed to get response from Gemini';
+      if (error.error && error.error.message) {
+        errorMessage = error.error.message;
+      }
+      
       return res.status(response.status).json({ 
-        error: error.error?.message || 'Failed to get response from Gemini' 
+        error: errorMessage
       });
     }
 
@@ -66,8 +80,18 @@ export default async function handler(req, res) {
 
     // Extract the response text
     if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+      // Sometimes the API returns empty candidates if content is blocked
+      if (data.candidates && data.candidates[0] && data.candidates[0].finishReason === 'SAFETY') {
+        return res.status(200).json({
+          success: true,
+          message: "I can't respond to that. Please try a different question.",
+          usage: data.usageMetadata || {}
+        });
+      }
+      
       return res.status(500).json({ 
-        error: 'Unexpected response format from Gemini API' 
+        error: 'Unexpected response format from Gemini API',
+        details: 'No content in response'
       });
     }
 
