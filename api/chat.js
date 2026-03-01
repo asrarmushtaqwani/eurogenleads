@@ -24,8 +24,9 @@ export default async function handler(req, res) {
       ? `${formattedHistory}\nUser: ${message}\nAssistant:`
       : `User: ${message}\nAssistant:`;
 
+    // Using the NEW endpoint: router.huggingface.co
     const response = await fetch(
-      'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1',
+      'https://router.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1',
       {
         method: 'POST',
         headers: {
