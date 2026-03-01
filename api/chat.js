@@ -10,46 +10,51 @@ export default async function handler(req, res) {
   }
 
   try {
-    const apiKey = process.env.CLAUDE_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: 'API key missing' });
+      return res.status(500).json({ error: 'GEMINI_API_KEY not set' });
     }
 
-    const messages = [
-      ...(conversationHistory || []),
-      { role: 'user', content: message }
-    ];
+    const contents = (conversationHistory || [])
+      .map(msg => ({
+        role: msg.role === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.content }]
+      }))
+      .concat([{
+        role: 'user',
+        parts: [{ text: message }]
+      }]);
 
-    const response = await fetch(
-      'https://api.anthropic.com/v1/messages',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01'
-        },
-        body: JSON.stringify({
-          model: 'claude-3-5-sonnet-20241022',
-          max_tokens: 1024,
-          messages: messages
-        })
-      }
-    );
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: contents,
+        generationConfig: {
+          temperature: 1,
+          maxOutputTokens: 2048,
+        }
+      })
+    });
 
     const data = await response.json();
 
     if (!response.ok) {
-      return res.status(response.status).json({ 
-        error: data.error?.message || 'API error'
-      });
+      const errorMsg = data.error?.message || 'Unknown error';
+      return res.status(response.status).json({ error: errorMsg });
     }
 
-    const assistantMessage = data.content[0].text;
+    if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
+      return res.status(500).json({ error: 'No response from Gemini' });
+    }
 
     return res.status(200).json({
       success: true,
-      message: assistantMessage
+      message: data.candidates[0].content.parts[0].text
     });
 
   } catch (error) {
