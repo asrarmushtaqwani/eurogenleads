@@ -74,7 +74,17 @@ export default function EuroGenLeads() {
       setFormData({ company: '', email: '', installations: '' });
       setErrors({ company: '', email: '', installations: '' });
     }, 3000);
-
+    // Send to N8N webhook (WhatsApp notification)
+fetch('http://localhost:5678/webhook-test/bb78d941-be5c-4b03-992a-ef9978eec788', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    company: formData.company,
+    email: formData.email,
+    installations: formData.installations,
+  }),
+}).catch(err => console.error('N8N error:', err));
+    
     // Send email in background
     try {
       await window.emailjs.send(
