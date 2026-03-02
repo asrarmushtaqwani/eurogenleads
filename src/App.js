@@ -264,9 +264,19 @@ export default function EuroGenLeads() {
               </div>
             </div>
 
-            <button onClick={() => contactFormRef.current?.scrollIntoView({ behavior: 'smooth' })} className="hero-get-started-btn get-started-btn bg-gradient-to-r from-teal-500 to-cyan-400 text-slate-900 px-8 py-3 rounded-xl transition-all font-semibold inline-flex items-center gap-2 shadow-lg shadow-teal-500/30">
-              Get Started <ArrowRight className="w-4 h-4" />
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button onClick={() => contactFormRef.current?.scrollIntoView({ behavior: 'smooth' })} className="hero-get-started-btn get-started-btn bg-gradient-to-r from-teal-500 to-cyan-400 text-slate-900 px-8 py-3 rounded-xl transition-all font-semibold inline-flex items-center gap-2 shadow-lg shadow-teal-500/30">
+                Get Started <ArrowRight className="w-4 h-4" />
+              </button>
+              <a
+                href="https://forms.gle/U25w1oDjitSBLJWk7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-3 rounded-xl border-2 border-teal-400/60 text-teal-300 hover:border-teal-400 hover:bg-teal-500/10 transition-all font-semibold text-sm"
+              >
+                🔍 Get Free Lead Audit
+              </a>
+            </div>
           </div>
 
           {/* Real-time Data Visualization */}
@@ -655,6 +665,23 @@ export default function EuroGenLeads() {
               <p className="text-center text-slate-500 text-xs">We respect your privacy. Your data is handled in compliance with GDPR & CCPA.</p>
             </form>
           )}
+        </div>
+      </section>
+
+      {/* Book a Call Section */}
+      <section className="py-20 px-4 border-t border-slate-800 scroll-mt-20">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-white mb-3">Book a Free Strategy Call</h2>
+          <p className="text-slate-400 mb-10">Skip the form — pick a time that works for you and let's talk about your solar lead pipeline.</p>
+          <a
+            href="https://calendly.com/asraarmushtaq/solar-lead-audit-call"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-teal-500 to-cyan-400 text-slate-900 px-10 py-4 rounded-xl font-bold text-lg shadow-lg shadow-teal-500/30 hover:from-teal-400 hover:to-cyan-300 transition-all"
+          >
+            📅 Schedule Your Call
+          </a>
+          <p className="text-slate-500 text-xs mt-6">30 minutes · No obligation · We'll audit your current lead flow live</p>
         </div>
       </section>
 
