@@ -668,23 +668,6 @@ export default function EuroGenLeads() {
         </div>
       </section>
 
-      {/* Book a Call Section */}
-      <section className="py-20 px-4 border-t border-slate-800 scroll-mt-20">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-3">Book a Free Strategy Call</h2>
-          <p className="text-slate-400 mb-10">Skip the form — pick a time that works for you and let's talk about your solar lead pipeline.</p>
-          <a
-            href="https://calendly.com/asraarmushtaq/solar-lead-audit-call"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-teal-500 to-cyan-400 text-slate-900 px-10 py-4 rounded-xl font-bold text-lg shadow-lg shadow-teal-500/30 hover:from-teal-400 hover:to-cyan-300 transition-all"
-          >
-            📅 Schedule Your Call
-          </a>
-          <p className="text-slate-500 text-xs mt-6">30 minutes · No obligation · We'll audit your current lead flow live</p>
-        </div>
-      </section>
-
       {/* About Us */}
       <section ref={aboutRef} className="py-20 px-4 scroll-mt-20">
         <div className="max-w-4xl mx-auto">
