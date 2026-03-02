@@ -75,7 +75,7 @@ export default function EuroGenLeads() {
       setErrors({ company: '', email: '', installations: '' });
     }, 3000);
     // Send to N8N webhook (WhatsApp notification)
-fetch('http://localhost:5678/webhook-test/bb78d941-be5c-4b03-992a-ef9978eec788', {
+fetch('http://localhost:5678/webhook/bb78d941-be5c-4b03-992a-ef9978eec788', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
