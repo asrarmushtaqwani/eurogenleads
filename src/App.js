@@ -140,36 +140,18 @@ export default function EuroGenLeads() {
 
   const installationRanges = ['1-10', '11-20', '21-50', '51-100', '101-250', '251-500', '500+'];
 
-// 1. Update Qualification & Growth every 24 hours
   useEffect(() => {
-    const dailyInterval = setInterval(() => {
+    const interval = setInterval(() => {
       setLeadMetrics(prev => ({
-        ...prev,
         qualification: Math.min(98, Math.max(85, prev.qualification + (Math.random() * 4 - 2))),
-        growth: Math.max(5, Math.min(25, prev.growth + (Math.random() * 3 - 1.5)))
+        growth: Math.max(5, Math.min(25, prev.growth + (Math.random() * 3 - 1.5))),
+        chatbots: Math.max(8, Math.min(35, prev.chatbots + Math.floor(Math.random() * 4 - 1))),
+        calls: Math.max(2, Math.min(15, prev.calls + Math.floor(Math.random() * 5 - 2)))
       }));
-    }, 24 * 60 * 60 * 1000); // 24 hours
-    
-    return () => clearInterval(dailyInterval);
+    }, 24 * 60 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
-  // 2. Update Active Chatbots & Voice Calls to random numbers every 5 minutes
-  useEffect(() => {
-    // 5 minutes in milliseconds
-    const fiveMinutes = 5 * 60 * 1000; 
-    
-    const rapidInterval = setInterval(() => {
-      setLeadMetrics(prev => ({
-        ...prev,
-        // Generates a random number of active chatbots between 10 and 42
-        chatbots: Math.floor(Math.random() * (42 - 10 + 1)) + 10,
-        // Generates a random number of active calls between 3 and 18
-        calls: Math.floor(Math.random() * (18 - 3 + 1)) + 3
-      }));
-    }, fiveMinutes);
-    
-    return () => clearInterval(rapidInterval);
-  }, []);
   // Load EmailJS SDK
   useEffect(() => {
     const script = document.createElement('script');
@@ -300,7 +282,7 @@ export default function EuroGenLeads() {
           {/* Real-time Data Visualization */}
           <div className="relative">
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-3xl p-8 backdrop-blur-md">
-              <-8">
+              <div className="mb-8">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-2.5 h-2.5 bg-teal-400 rounded-full animate-pulse"></div>
                   <h3 className="text-lg font-semibold text-white">Live Performance</h3>
@@ -752,7 +734,7 @@ export default function EuroGenLeads() {
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-black/60 backdrop-blur-sm">
           <div className="bg-slate-800 border border-slate-700 rounded-3xl p-12 text-center max-w-md">
-            <-6 flex justify-center">
+            <div className="mb-6 flex justify-center">
               <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30">
                 <Check className="w-10 h-10 text-white" strokeWidth={3} />
               </div>
@@ -813,31 +795,28 @@ export default function EuroGenLeads() {
                 <span className="text-xs bg-teal-500/20 text-teal-300 border border-teal-500/40 px-2 py-0.5 rounded-full font-semibold">Save 20%</span>
               </div>
 
+              {/* Founder's Deal Banner */}
+              <div className="border border-teal-500/30 bg-teal-500/5 rounded-xl p-4 text-center">
+                <p className="text-sm text-slate-300">🎉 <span className="text-teal-400 font-bold">Founder's Deal:</span> First 5 clients lock in launch pricing forever — <span className="text-teal-400 font-bold">3 spots remaining</span> 🎉</p>
+              </div>
+
               {/* Pricing Cards — 3 columns on desktop, stack on mobile */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
 
                 {/* Starter */}
                 <div className="bg-slate-800/40 border border-slate-700 rounded-2xl p-6 flex flex-col">
-                  <-5">
+                  <div className="mb-5">
                     <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center text-2xl mb-4">🌱</div>
                     <h3 className="text-lg font-bold text-slate-300 tracking-widest uppercase mb-2">Starter</h3>
                     <span className="inline-flex items-center gap-1 border border-slate-600 rounded-full px-3 py-1 text-xs text-slate-400">📬 10–15 leads/mo</span>
                     <p className="text-slate-500 text-xs mt-3">Consistent AI-driven lead flow for solar companies ready to grow</p>
                   </div>
-                  <-5">
-                    {/* OLD PRICE (Strikethrough) */}
-                    <div className="flex items-start gap-1 opacity-60 mb-2">
-                      <span className="text-slate-400 text-lg mt-1">$</span>
-                      <span className="text-5xl font-bold text-slate-400 line-through decoration-slate-500 decoration-2">
-                        {billingCycle === 'annual' ? '1,040' : '1,300'}
-                      </span>
-                    </div>
-                    {/* NEW PRICE */}
+                  <div className="mb-5">
                     <div className="flex items-start gap-1">
-                      <span className="text-teal-400 text-lg mt-1">$</span>
+                      <span className="text-slate-400 text-lg mt-1">$</span>
                       <span className="text-5xl font-bold text-white">{billingCycle === 'annual' ? '798' : '997'}</span>
                     </div>
-                    <p className="text-slate-500 text-xs mt-2">per month, billed {billingCycle === 'annual' ? 'annually' : 'monthly'}</p>
+                    <p className="text-slate-500 text-xs mt-1">per month, billed {billingCycle === 'annual' ? 'annually' : 'monthly'}</p>
                   </div>
                   <div className="bg-slate-700/30 border border-slate-600/50 rounded-xl p-4 mb-5">
                     <p className="text-xs font-bold text-purple-400 tracking-widest mb-3">🤖 AI ASSISTANTS INCLUDED</p>
@@ -914,10 +893,8 @@ export default function EuroGenLeads() {
                   <div className="mb-5">
                     <div className="flex items-start gap-1">
                       <span className="text-slate-400 text-lg mt-1">$</span>
-                      <span className="text-5xl font-bold text-white">{billingCycle === 'annual' ? '1,998' : '2,497'}</span>
+                      <span className="text-5xl font-bold text-white">{billingCycle === 'annual' ? '3,598' : '4,497'}</span>
                     </div>
-                    <p className="text-slate-500 text-xs mt-1">per month, billed {billingCycle === 'annual' ? 'annually' : 'monthly'}</p>
-                  </div>
                     <p className="text-slate-500 text-xs mt-1">per month, billed {billingCycle === 'annual' ? 'annually' : 'monthly'}</p>
                   </div>
                   <div className="bg-slate-700/30 border border-slate-600/50 rounded-xl p-4 mb-5">
