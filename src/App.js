@@ -140,18 +140,36 @@ export default function EuroGenLeads() {
 
   const installationRanges = ['1-10', '11-20', '21-50', '51-100', '101-250', '251-500', '500+'];
 
+// 1. Update Qualification & Growth every 24 hours
   useEffect(() => {
-    const interval = setInterval(() => {
+    const dailyInterval = setInterval(() => {
       setLeadMetrics(prev => ({
+        ...prev,
         qualification: Math.min(98, Math.max(85, prev.qualification + (Math.random() * 4 - 2))),
-        growth: Math.max(5, Math.min(25, prev.growth + (Math.random() * 3 - 1.5))),
-        chatbots: Math.max(8, Math.min(35, prev.chatbots + Math.floor(Math.random() * 4 - 1))),
-        calls: Math.max(2, Math.min(15, prev.calls + Math.floor(Math.random() * 5 - 2)))
+        growth: Math.max(5, Math.min(25, prev.growth + (Math.random() * 3 - 1.5)))
       }));
-    }, 24 * 60 * 60 * 1000);
-    return () => clearInterval(interval);
+    }, 24 * 60 * 60 * 1000); // 24 hours
+    
+    return () => clearInterval(dailyInterval);
   }, []);
 
+  // 2. Update Active Chatbots & Voice Calls to random numbers every 5 minutes
+  useEffect(() => {
+    // 5 minutes in milliseconds
+    const fiveMinutes = 5 * 60 * 1000; 
+    
+    const rapidInterval = setInterval(() => {
+      setLeadMetrics(prev => ({
+        ...prev,
+        // Generates a random number of active chatbots between 10 and 42
+        chatbots: Math.floor(Math.random() * (42 - 10 + 1)) + 10,
+        // Generates a random number of active calls between 3 and 18
+        calls: Math.floor(Math.random() * (18 - 3 + 1)) + 3
+      }));
+    }, fiveMinutes);
+    
+    return () => clearInterval(rapidInterval);
+  }, []);
   // Load EmailJS SDK
   useEffect(() => {
     const script = document.createElement('script');
