@@ -907,11 +907,19 @@ export default function EuroGenLeads() {
                     <p className="text-slate-500 text-xs mt-3">A fully autonomous AI sales system replacing an entire in-house team</p>
                   </div>
                   <div className="mb-5">
-                    <div className="flex items-start gap-1">
+                    {/* OLD PRICE (Strikethrough) */}
+                    <div className="flex items-start gap-1 opacity-60 mb-2">
                       <span className="text-slate-400 text-lg mt-1">$</span>
+                      <span className="text-5xl font-bold text-slate-400 line-through decoration-slate-500 decoration-2">
+                        {billingCycle === 'annual' ? '4,400' : '5,500'}
+                      </span>
+                    </div>
+                    {/* NEW PRICE */}
+                    <div className="flex items-start gap-1">
+                      <span className="text-teal-400 text-lg mt-1">$</span>
                       <span className="text-5xl font-bold text-white">{billingCycle === 'annual' ? '3,598' : '4,497'}</span>
                     </div>
-                    <p className="text-slate-500 text-xs mt-1">per month, billed {billingCycle === 'annual' ? 'annually' : 'monthly'}</p>
+                    <p className="text-slate-500 text-xs mt-2">per month, billed {billingCycle === 'annual' ? 'annually' : 'monthly'}</p>
                   </div>
                   <div className="bg-slate-700/30 border border-slate-600/50 rounded-xl p-4 mb-5">
                     <p className="text-xs font-bold text-purple-400 tracking-widest mb-3">🤖 FULL AI AUTOMATION SUITE</p>
