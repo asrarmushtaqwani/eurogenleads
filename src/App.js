@@ -825,15 +825,19 @@ export default function EuroGenLeads() {
                     <p className="text-slate-500 text-xs mt-3">Consistent AI-driven lead flow for solar companies ready to grow</p>
                   </div>
                   <div className="mb-5">
-                    {/* Strikethrough Price */}
-                    <div className="text-slate-500 text-lg line-through decoration-slate-600 mb-1">
-                      ${billingCycle === 'annual' ? '1,040' : '1,300'}
-                    </div>
-                    <div className="flex items-start gap-1">
+                    {/* OLD PRICE (Strikethrough) */}
+                    <div className="flex items-start gap-1 opacity-60 mb-2">
                       <span className="text-slate-400 text-lg mt-1">$</span>
+                      <span className="text-5xl font-bold text-slate-400 line-through decoration-slate-500 decoration-2">
+                        {billingCycle === 'annual' ? '1,040' : '1,300'}
+                      </span>
+                    </div>
+                    {/* NEW PRICE */}
+                    <div className="flex items-start gap-1">
+                      <span className="text-teal-400 text-lg mt-1">$</span>
                       <span className="text-5xl font-bold text-white">{billingCycle === 'annual' ? '798' : '997'}</span>
                     </div>
-                    <p className="text-slate-500 text-xs mt-1">per month, billed {billingCycle === 'annual' ? 'annually' : 'monthly'}</p>
+                    <p className="text-slate-500 text-xs mt-2">per month, billed {billingCycle === 'annual' ? 'annually' : 'monthly'}</p>
                   </div>
                   <div className="bg-slate-700/30 border border-slate-600/50 rounded-xl p-4 mb-5">
                     <p className="text-xs font-bold text-purple-400 tracking-widest mb-3">🤖 AI ASSISTANTS INCLUDED</p>
