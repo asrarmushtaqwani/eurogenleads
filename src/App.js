@@ -825,6 +825,10 @@ export default function EuroGenLeads() {
                     <p className="text-slate-500 text-xs mt-3">Consistent AI-driven lead flow for solar companies ready to grow</p>
                   </div>
                   <div className="mb-5">
+                    {/* Strikethrough Price */}
+                    <div className="text-slate-500 text-lg line-through decoration-slate-600 mb-1">
+                      ${billingCycle === 'annual' ? '1,040' : '1,300'}
+                    </div>
                     <div className="flex items-start gap-1">
                       <span className="text-slate-400 text-lg mt-1">$</span>
                       <span className="text-5xl font-bold text-white">{billingCycle === 'annual' ? '798' : '997'}</span>
