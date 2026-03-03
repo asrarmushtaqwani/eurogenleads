@@ -3,11 +3,15 @@ import React from 'react';
 function App() {
   return (
     <div>
-      {/* Other components */}
+      {/* Other content... */}
 
-      {/* Removed Founder's Deal Banner */}
+      {/* Pricing Modal */}
+      <div className="pricing-modal">
+        <h2>Pricing Plans</h2>
+        {/* Pricing options content preserved here */}
+      </div>
 
-      {/* Other components */}
+      {/* Any other components */}
     </div>
   );
 }
