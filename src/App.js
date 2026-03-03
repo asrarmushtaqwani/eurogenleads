@@ -795,11 +795,6 @@ export default function EuroGenLeads() {
                 <span className="text-xs bg-teal-500/20 text-teal-300 border border-teal-500/40 px-2 py-0.5 rounded-full font-semibold">Save 20%</span>
               </div>
 
-              {/* Founder's Deal Banner */}
-              <div className="border border-teal-500/30 bg-teal-500/5 rounded-xl p-4 text-center">
-                <p className="text-sm text-slate-300">🎉 <span className="text-teal-400 font-bold">Founder's Deal:</span> First 5 clients lock in launch pricing forever — <span className="text-teal-400 font-bold">3 spots remaining</span> 🎉</p>
-              </div>
-
               {/* Pricing Cards — 3 columns on desktop, stack on mobile */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
 
