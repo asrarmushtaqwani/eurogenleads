@@ -300,7 +300,7 @@ export default function EuroGenLeads() {
           {/* Real-time Data Visualization */}
           <div className="relative">
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-3xl p-8 backdrop-blur-md">
-              <div className="mb-8">
+              <-8">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-2.5 h-2.5 bg-teal-400 rounded-full animate-pulse"></div>
                   <h3 className="text-lg font-semibold text-white">Live Performance</h3>
@@ -752,7 +752,7 @@ export default function EuroGenLeads() {
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-black/60 backdrop-blur-sm">
           <div className="bg-slate-800 border border-slate-700 rounded-3xl p-12 text-center max-w-md">
-            <div className="mb-6 flex justify-center">
+            <-6 flex justify-center">
               <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30">
                 <Check className="w-10 h-10 text-white" strokeWidth={3} />
               </div>
@@ -818,13 +818,13 @@ export default function EuroGenLeads() {
 
                 {/* Starter */}
                 <div className="bg-slate-800/40 border border-slate-700 rounded-2xl p-6 flex flex-col">
-                  <div className="mb-5">
+                  <-5">
                     <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center text-2xl mb-4">🌱</div>
                     <h3 className="text-lg font-bold text-slate-300 tracking-widest uppercase mb-2">Starter</h3>
                     <span className="inline-flex items-center gap-1 border border-slate-600 rounded-full px-3 py-1 text-xs text-slate-400">📬 10–15 leads/mo</span>
                     <p className="text-slate-500 text-xs mt-3">Consistent AI-driven lead flow for solar companies ready to grow</p>
                   </div>
-                  <div className="mb-5">
+                  <-5">
                     {/* OLD PRICE (Strikethrough) */}
                     <div className="flex items-start gap-1 opacity-60 mb-2">
                       <span className="text-slate-400 text-lg mt-1">$</span>
@@ -872,19 +872,11 @@ export default function EuroGenLeads() {
                     <p className="text-slate-400 text-xs mt-3">A full AI-powered lead engine running across every channel, non-stop</p>
                   </div>
                   <div className="mb-5">
-                    {/* OLD PRICE (Strikethrough) */}
-                    <div className="flex items-start gap-1 opacity-60 mb-2">
-                      <span className="text-slate-400 text-lg mt-1">$</span>
-                      <span className="text-5xl font-bold text-slate-400 line-through decoration-slate-500 decoration-2">
-                        {billingCycle === 'annual' ? '2,600' : '3,200'}
-                      </span>
-                    </div>
-                    {/* NEW PRICE */}
                     <div className="flex items-start gap-1">
-                      <span className="text-amber-400 text-lg mt-1">$</span>
+                      <span className="text-slate-400 text-lg mt-1">$</span>
                       <span className="text-5xl font-bold text-white">{billingCycle === 'annual' ? '1,998' : '2,497'}</span>
                     </div>
-                    <p className="text-slate-500 text-xs mt-2">per month, billed {billingCycle === 'annual' ? 'annually' : 'monthly'}</p>
+                    <p className="text-slate-500 text-xs mt-1">per month, billed {billingCycle === 'annual' ? 'annually' : 'monthly'}</p>
                   </div>
                   <div className="bg-slate-700/30 border border-slate-600/50 rounded-xl p-4 mb-5">
                     <p className="text-xs font-bold text-purple-400 tracking-widest mb-3">🤖 ADVANCED AI ASSISTANTS</p>
