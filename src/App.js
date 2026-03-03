@@ -795,11 +795,6 @@ export default function EuroGenLeads() {
                 <span className="text-xs bg-teal-500/20 text-teal-300 border border-teal-500/40 px-2 py-0.5 rounded-full font-semibold">Save 20%</span>
               </div>
 
-              {/* Founder's Deal Banner */}
-              <div className="border border-teal-500/30 bg-teal-500/5 rounded-xl p-4 text-center">
-                <p className="text-sm text-slate-300">🎉 <span className="text-teal-400 font-bold">Founder's Deal:</span> First 5 clients lock in launch pricing forever — <span className="text-teal-400 font-bold">3 spots remaining</span> 🎉</p>
-              </div>
-
               {/* Pricing Cards — 3 columns on desktop, stack on mobile */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
 
@@ -887,7 +882,6 @@ export default function EuroGenLeads() {
                     <p className="text-xs font-bold text-teal-500 tracking-widest mb-3">OUTREACH & LEAD GEN</p>
                     <ul className="space-y-1.5 text-xs text-slate-400">
                       <li>✓ 1,500 AI-targeted contacts/mo</li>
-                      <li>✓ Meta & Google Ads — setup + management</li>
                       <li>✓ LinkedIn outreach — 150–200 requests/mo</li>
                       <li>✓ AI lead scoring — filters by budget, intent & property</li>
                       <li>✓ Live reporting dashboard</li>
@@ -937,7 +931,6 @@ export default function EuroGenLeads() {
                     <ul className="space-y-1.5 text-xs text-slate-400">
                       <li>✓ 3,000+ contacts/mo — expanded targeting</li>
                       <li>✓ Exclusive leads — 100% yours, never shared</li>
-                      <li>✓ Full ad management — Meta + Google + retargeting</li>
                       <li>✓ SEO content — 2 location-targeted pieces/mo</li>
                       <li>✓ Competitor analysis — monthly local report</li>
                       <li>✓ Dedicated account manager + weekly calls</li>
@@ -981,7 +974,6 @@ export default function EuroGenLeads() {
                       <tr className="hover:bg-slate-800/20"><td className="px-5 py-3 text-slate-300">Monthly contacts reached</td><td className="px-4 py-3 text-center text-slate-300">500</td><td className="px-4 py-3 text-center text-slate-300">1,500</td><td className="px-4 py-3 text-center text-slate-300">3,000+</td></tr>
                       <tr className="hover:bg-slate-800/20"><td className="px-5 py-3 text-slate-300">AI email outreach</td><td className="px-4 py-3 text-center text-teal-400">✓</td><td className="px-4 py-3 text-center text-teal-400">✓</td><td className="px-4 py-3 text-center text-teal-400">✓</td></tr>
                       <tr className="hover:bg-slate-800/20"><td className="px-5 py-3 text-slate-300">LinkedIn outreach</td><td className="px-4 py-3 text-center text-slate-300 text-xs">50–80/mo</td><td className="px-4 py-3 text-center text-slate-300 text-xs">150–200/mo</td><td className="px-4 py-3 text-center text-slate-300 text-xs">300+/mo</td></tr>
-                      <tr className="hover:bg-slate-800/20"><td className="px-5 py-3 text-slate-300">Meta & Google Ads management</td><td className="px-4 py-3 text-center text-slate-600">—</td><td className="px-4 py-3 text-center text-teal-400">✓</td><td className="px-4 py-3 text-center text-teal-400">✓</td></tr>
                       <tr className="hover:bg-slate-800/20"><td className="px-5 py-3 text-slate-300">AI lead scoring</td><td className="px-4 py-3 text-center text-purple-400 font-semibold text-xs">Basic</td><td className="px-4 py-3 text-center text-teal-400 text-xs">✓ Advanced</td><td className="px-4 py-3 text-center text-teal-400 text-xs">✓ Advanced</td></tr>
                       <tr className="hover:bg-slate-800/20"><td className="px-5 py-3 text-slate-300">Exclusive leads (not shared)</td><td className="px-4 py-3 text-center text-slate-600">—</td><td className="px-4 py-3 text-center text-slate-600">—</td><td className="px-4 py-3 text-center text-teal-400">✓</td></tr>
                       <tr className="hover:bg-slate-800/20"><td className="px-5 py-3 text-slate-300">SEO content creation</td><td className="px-4 py-3 text-center text-slate-600">—</td><td className="px-4 py-3 text-center text-slate-600">—</td><td className="px-4 py-3 text-center text-slate-300 text-xs">2 pieces/mo</td></tr>
