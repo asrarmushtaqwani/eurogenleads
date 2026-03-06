@@ -1,5 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, Sun, Check, ArrowRight, Star, Users, TrendingUp, MessageSquare, Phone, Globe } from 'lucide-react';
+import ReactGA from 'react-ga4';
+
+// Initialize Google Analytics with YOUR Measurement ID
+ReactGA.initialize('G-S5R0ZMPQFW');
+
+// Track page view when app loads
+ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
 
 const EMAILJS_SERVICE_ID = 'service_xbest6g';
 const EMAILJS_TEMPLATE_ID = 'template_9yoeqvi';
