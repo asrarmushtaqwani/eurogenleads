@@ -699,7 +699,7 @@ export default function EuroGenLeads() {
             </div>
 
             <p className="text-lg text-slate-400 leading-relaxed">
-              Founded by solar industry veterans and based in NV, USA, EuroGenLeads brings years of experience in both technology and solar sales. We're not just building software—we're building partnerships with our clients. Your success is our success, and we're committed to supporting your growth every step of the way.
+              Founded by solar industry veterans and based in Nevada USA, EuroGenLeads brings years of experience in both technology and solar sales. We're not just building software—we're building partnerships with our clients. Your success is our success, and we're committed to supporting your growth every step of the way.
             </p>
 
             <p className="text-lg text-slate-400 leading-relaxed">
